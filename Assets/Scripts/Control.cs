@@ -6,7 +6,6 @@ public class Control : MonoBehaviour
 {
     private GameObject cameraObj;
     private GameObject lightObj;
-    private List<GameObject> modelObjs;
 
     // Start is called before the first frame update
     void Start()
@@ -17,7 +16,9 @@ public class Control : MonoBehaviour
         for(int i=0; i < modelNames.Count; i++)
         {
             GameObject temp = Instantiate(Models.getInstance().GetModelsByName(modelNames[i])) as GameObject;
-            //modelObjs.Add(temp);
+            temp.transform.localScale = new Vector3(100, 100, 100);
+            temp.transform.Translate(new Vector3(i+1,0,0));
+            temp.transform.parent = this.transform;
         }
 
     }
