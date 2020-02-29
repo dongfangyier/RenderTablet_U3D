@@ -1,18 +1,36 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
-public class NewBehaviourScript : MonoBehaviour
+public class Light
 {
-    // Start is called before the first frame update
-    void Start()
+    #region songleton
+    private static Light instance = null;
+
+    private Light()
     {
-        
+        init();
     }
 
-    // Update is called once per frame
-    void Update()
+    public static Light getInstance()
     {
-        
+        if (instance == null)
+        {
+            instance = new Light();
+        }
+        return instance;
+    }
+    #endregion
+
+    private string lightPath;
+    private void init()
+    {
+        lightPath = Path.Combine("Prefabs", "light", "Directional_Light");
+    }
+
+    public Object GetLight()
+    {
+        return Resources.Load(lightPath);
     }
 }

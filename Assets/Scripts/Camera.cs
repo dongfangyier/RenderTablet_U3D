@@ -1,18 +1,37 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
-public class Camera : MonoBehaviour
+public class Camera
 {
-    // Start is called before the first frame update
-    void Start()
+    #region songleton
+    private static Camera instance = null;
+
+    private Camera()
     {
-        
+        init();
     }
 
-    // Update is called once per frame
-    void Update()
+    public static Camera getInstance()
     {
-        
+        if (instance == null)
+        {
+            instance = new Camera();
+        }
+        return instance;
+    }
+    #endregion
+
+    private string cameraPath;
+    private void init()
+    {
+        cameraPath = Path.Combine("Prefabs", "camera", "Main_Camera");
+    }
+
+    public Object GetCamera()
+    {
+        return Resources.Load(cameraPath);
     }
 }
+

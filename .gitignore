@@ -265,3 +265,5 @@ __pycache__/
 Library/
 ProjectSettings/
 Temp/
+Resources/
+Models/
