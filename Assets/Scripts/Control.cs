@@ -44,13 +44,17 @@ public class Control : MonoBehaviour
 
         // 添加摄像机和灯光 并渲染图片
         // ------
-        Invoke("RenderPic", 3); // 3s后执行 因为有些力的关系需要计算清楚
+        StartCoroutine(RenderPic());
     }
 
     #region functions
 
-    private void RenderPic()
+    private IEnumerator RenderPic()
     {
+        // 3s后执行 因为有些力的关系需要计算清楚
+        yield return new WaitForSeconds(3);
+
+
         float minX, maxX;
         float minZ, maxZ;
         FreezeRigidbody(out minX, out maxX, out minZ, out maxZ);
@@ -70,12 +74,16 @@ public class Control : MonoBehaviour
         lightObj.transform.Translate(new Vector3(Random.Range(-4.0f, 4.0f), 10.0f, 0.0f));
         lightObj.transform.Rotate(new Vector3(40.0f, 0.0f, 0.0f));
 
-        // 获取物体坐标
+        // 存储物体坐标
         SaveScreenCoordinate(ref cameraObj);
 
+        //等待渲染线程结束
+        yield return new WaitForEndOfFrame();
+
+        // 存储截屏
+        SaveScreenPic();
+
         DestoryModels(ref lightObj, ref cameraObj);
-
-
     }
 
     private void DestoryModels(ref GameObject lightObj, ref GameObject cameraObj)
@@ -123,7 +131,7 @@ public class Control : MonoBehaviour
         }
     }
 
-    // TO DO:获取物体的屏幕坐标
+    // 存储物体的屏幕坐标
     private void SaveScreenCoordinate(ref GameObject cameraObj)
     {
         string str = "";
@@ -150,6 +158,11 @@ public class Control : MonoBehaviour
         }
         File.WriteAllText(Path.Combine(Application.dataPath, "Result", "PosInfo_"+fileId.ToString()+".txt"), str);
         
+    }
+
+    private void SaveScreenPic()
+    {
+       ScreenCapture.CaptureScreenshot(Path.Combine(Application.dataPath, "Result", "ImgInfo_" + fileId.ToString() + ".png"));
     }
 
     #endregion
