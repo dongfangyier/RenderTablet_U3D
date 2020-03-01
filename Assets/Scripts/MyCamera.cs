@@ -3,21 +3,21 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
-public class Camera
+public class MyCamera
 {
     #region songleton
-    private static Camera instance = null;
+    private static MyCamera instance = null;
 
-    private Camera()
+    private MyCamera()
     {
         init();
     }
 
-    public static Camera getInstance()
+    public static MyCamera getInstance()
     {
         if (instance == null)
         {
-            instance = new Camera();
+            instance = new MyCamera();
         }
         return instance;
     }

@@ -3,21 +3,21 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
-public class Light
+public class MyLight
 {
     #region songleton
-    private static Light instance = null;
+    private static MyLight instance = null;
 
-    private Light()
+    private MyLight()
     {
         init();
     }
 
-    public static Light getInstance()
+    public static MyLight getInstance()
     {
         if (instance == null)
         {
-            instance = new Light();
+            instance = new MyLight();
         }
         return instance;
     }

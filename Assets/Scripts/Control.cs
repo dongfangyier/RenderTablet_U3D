@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading;
 using UnityEngine;
 
@@ -7,6 +8,7 @@ public class Control : MonoBehaviour
 {
 
     private bool bInit = false;
+    private int fileId = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -56,7 +58,7 @@ public class Control : MonoBehaviour
         // 加载摄像机
         // ------
         GameObject cameraObj;
-        cameraObj = Instantiate(Camera.getInstance().GetCamera()) as GameObject;
+        cameraObj = Instantiate(MyCamera.getInstance().GetCamera()) as GameObject;
         cameraObj.transform.position = new Vector3(Mathf.Round((maxX - minX) / 2), 5.0f, Mathf.Round((maxZ - minZ) / 2) - 14.0f);
         cameraObj.transform.Rotate(0.0f, -10f, 0.0f);
 
@@ -64,12 +66,12 @@ public class Control : MonoBehaviour
         // 加载灯光
         // ------
         GameObject lightObj;
-        lightObj = Instantiate(Light.getInstance().GetLight()) as GameObject;
+        lightObj = Instantiate(MyLight.getInstance().GetLight()) as GameObject;
         lightObj.transform.Translate(new Vector3(Random.Range(-4.0f, 4.0f), 10.0f, 0.0f));
         lightObj.transform.Rotate(new Vector3(40.0f, 0.0f, 0.0f));
 
         // 获取物体坐标
-        GetScreenCoordinate();
+        SaveScreenCoordinate(ref cameraObj);
 
         DestoryModels(ref lightObj, ref cameraObj);
 
@@ -86,6 +88,7 @@ public class Control : MonoBehaviour
         }
 
         bInit = false;
+        fileId++;
     }
 
     // 冻结刚体，并返回此时物体的大致位置
@@ -121,14 +124,32 @@ public class Control : MonoBehaviour
     }
 
     // TO DO:获取物体的屏幕坐标
-    private void GetScreenCoordinate()
+    private void SaveScreenCoordinate(ref GameObject cameraObj)
     {
-        Dictionary<string, Vector2> screenCoordinate;
+        string str = "";
         for (int i = 0; i < transform.childCount; i++)
         {
-            GameObject temp = this.transform.GetChild(i).gameObject;
-            Debug.Log(temp.transform.localPosition);
+            GameObject tempObject = this.transform.GetChild(i).gameObject;
+            if (!tempObject.activeSelf)
+            {
+                continue;
+            }
+            List<Vector3> screen_mesh_list = new List<Vector3>();
+            foreach(Vector3 vector3 in MeshUtils.GetAllMeshes(tempObject))
+            {
+                screen_mesh_list.Add(Camera.main.WorldToScreenPoint(vector3));
+            }
+            str += tempObject.name;
+            str += ",";
+            foreach(Vector2 screens in MeshUtils.GetFourVertices_Screen(screen_mesh_list))
+            {
+                str += string.Format("({0},{1}),", screens.x, screens.y);
+            }
+            str += "\n";
+
         }
+        File.WriteAllText(Path.Combine(Application.dataPath, "Result", "PosInfo_"+fileId.ToString()+".txt"), str);
+        
     }
 
     #endregion
