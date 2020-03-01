@@ -34,13 +34,19 @@ public class Control : MonoBehaviour
             float y = 3.0f;
             float x = Random.Range(-5.0f, 5.0f);
 
+            // 添加组件
             GameObject temp = Instantiate(Models.getInstance().GetModelsByName(modelNames[i])) as GameObject;
+            temp.AddComponent<MeshCollider>();
+            temp.GetComponent<MeshCollider>().convex = true;
+            temp.AddComponent<Rigidbody>();
+            temp.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionX;
+            temp.AddComponent<BVisible>();
+
+
             temp.transform.localScale = new Vector3(200.0f, 200.0f, 200.0f);
             temp.transform.Translate(new Vector3(x, y, z));
             temp.transform.parent = this.transform;
         }
-
-
 
         // 添加摄像机和灯光 并渲染图片
         // ------
@@ -51,10 +57,11 @@ public class Control : MonoBehaviour
 
     private IEnumerator RenderPic()
     {
-        // 3s后执行 因为有些力的关系需要计算清楚
-        yield return new WaitForSeconds(3);
+        // 2s后执行 因为有些力的关系需要计算清楚
+        yield return new WaitForSeconds(2);
 
-
+        // 冻结位置
+        // ------
         float minX, maxX;
         float minZ, maxZ;
         FreezeRigidbody(out minX, out maxX, out minZ, out maxZ);
@@ -66,7 +73,6 @@ public class Control : MonoBehaviour
         cameraObj.transform.position = new Vector3(Mathf.Round((maxX - minX) / 2), 5.0f, Mathf.Round((maxZ - minZ) / 2) - 14.0f);
         cameraObj.transform.Rotate(0.0f, -10f, 0.0f);
 
-
         // 加载灯光
         // ------
         GameObject lightObj;
@@ -74,15 +80,22 @@ public class Control : MonoBehaviour
         lightObj.transform.Translate(new Vector3(Random.Range(-4.0f, 4.0f), 10.0f, 0.0f));
         lightObj.transform.Rotate(new Vector3(40.0f, 0.0f, 0.0f));
 
+        // 1s后执行 是为了触发BVisible
+        yield return new WaitForSeconds(1);
+
         // 存储物体坐标
+        // ------
         SaveScreenCoordinate(ref cameraObj);
 
-        //等待渲染线程结束
+        // 等待渲染线程结束
         yield return new WaitForEndOfFrame();
 
         // 存储截屏
+        // ------
         SaveScreenPic();
 
+        // 销毁物体
+        // ------
         DestoryModels(ref lightObj, ref cameraObj);
     }
 
@@ -138,8 +151,9 @@ public class Control : MonoBehaviour
         for (int i = 0; i < transform.childCount; i++)
         {
             GameObject tempObject = this.transform.GetChild(i).gameObject;
-            if (!tempObject.activeSelf)
+            if (!tempObject.GetComponent<BVisible>().bVisible)
             {
+                Debug.Log("loss...");
                 continue;
             }
             List<Vector3> screen_mesh_list = new List<Vector3>();
