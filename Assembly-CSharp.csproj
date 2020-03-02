@@ -68,14 +68,25 @@
     <Compile Include="Assets\Scripts\Models.cs" />
     <Compile Include="Assets\Scripts\MyCamera.cs" />
     <Compile Include="Assets\Scripts\MyLight.cs" />
+    <None Include="Assets\Result\PosInfo_3.txt" />
     <None Include="Assets\Result\PosInfo_2.txt" />
     <None Include="Assets\Result\PosInfo_1.txt" />
     <None Include="Assets\Result\PosInfo_0.txt" />
+    <None Include="Assets\Result\PosInfo_4.txt" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>D:/Space/UnitySpace/RenderTablet_U3D/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VSCode.Editor">
       <HintPath>D:/Space/UnitySpace/RenderTablet_U3D/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.RenderPipelines.Core.Editor">
+      <HintPath>D:/Space/UnitySpace/RenderTablet_U3D/Library/ScriptAssemblies/Unity.RenderPipelines.Core.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.RenderPipelines.Core.Runtime">
+      <HintPath>D:/Space/UnitySpace/RenderTablet_U3D/Library/ScriptAssemblies/Unity.RenderPipelines.Core.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.VisualEffectGraph.Runtime">
+      <HintPath>D:/Space/UnitySpace/RenderTablet_U3D/Library/ScriptAssemblies/Unity.VisualEffectGraph.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>D:/Space/UnitySpace/RenderTablet_U3D/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
@@ -89,8 +100,29 @@
     <Reference Include="Unity.CollabProxy.Editor">
       <HintPath>D:/Space/UnitySpace/RenderTablet_U3D/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.RenderPipelines.HighDefinition.Runtime">
+      <HintPath>D:/Space/UnitySpace/RenderTablet_U3D/Library/ScriptAssemblies/Unity.RenderPipelines.HighDefinition.Runtime.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.Rider.Editor">
       <HintPath>D:/Space/UnitySpace/RenderTablet_U3D/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary">
+      <HintPath>D:/Space/UnitySpace/RenderTablet_U3D/Library/ScriptAssemblies/Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.RenderPipelines.HighDefinition.Config.Runtime">
+      <HintPath>D:/Space/UnitySpace/RenderTablet_U3D/Library/ScriptAssemblies/Unity.RenderPipelines.HighDefinition.Config.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.VisualEffectGraph.Editor">
+      <HintPath>D:/Space/UnitySpace/RenderTablet_U3D/Library/ScriptAssemblies/Unity.VisualEffectGraph.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.ShaderGraph.Editor">
+      <HintPath>D:/Space/UnitySpace/RenderTablet_U3D/Library/ScriptAssemblies/Unity.ShaderGraph.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.RenderPipelines.HighDefinition.Editor">
+      <HintPath>D:/Space/UnitySpace/RenderTablet_U3D/Library/ScriptAssemblies/Unity.RenderPipelines.HighDefinition.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.RenderPipelines.Core.ShaderLibrary">
+      <HintPath>D:/Space/UnitySpace/RenderTablet_U3D/Library/ScriptAssemblies/Unity.RenderPipelines.Core.ShaderLibrary.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
       <HintPath>D:/Space/UnitySpace/RenderTablet_U3D/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
