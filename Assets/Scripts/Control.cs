@@ -78,7 +78,7 @@ public class Control : MonoBehaviour
         GameObject lightObj;
         lightObj = Instantiate(MyLight.getInstance().GetLight()) as GameObject;
         lightObj.transform.Translate(new Vector3(Random.Range(-4.0f, 4.0f), 10.0f, 0.0f));
-        lightObj.transform.Rotate(new Vector3(40.0f, 0.0f, 0.0f));
+        lightObj.transform.Rotate(new Vector3(Random.Range(30.0f, 60.0f), 0.0f, 0.0f));
 
         // 1s后执行 是为了触发BVisible
         yield return new WaitForSeconds(1);
