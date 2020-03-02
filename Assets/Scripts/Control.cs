@@ -14,7 +14,7 @@ public class Control : MonoBehaviour
     void Start()
     {
         // 每6秒 执行一次
-        InvokeRepeating("RenderRandomModels", 1, 6);
+        InvokeRepeating("RenderRandomModels", 1, 8);
     }
 
     private void RenderRandomModels()
@@ -58,7 +58,7 @@ public class Control : MonoBehaviour
     private IEnumerator RenderPic()
     {
         // 2s后执行 因为有些力的关系需要计算清楚
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(4);
 
         // 冻结位置
         // ------
@@ -70,7 +70,7 @@ public class Control : MonoBehaviour
         // ------
         GameObject cameraObj;
         cameraObj = Instantiate(MyCamera.getInstance().GetCamera()) as GameObject;
-        cameraObj.transform.position = new Vector3(Mathf.Round((maxX - minX) / 2), 5.0f, Mathf.Round((maxZ - minZ) / 2) - 14.0f);
+        cameraObj.transform.position = new Vector3(Mathf.Round((maxX - minX) / 2), 5.0f, Mathf.Round((maxZ - minZ) / 2) - 15.0f);
         cameraObj.transform.Rotate(0.0f, -10f, 0.0f);
 
         // 加载灯光
