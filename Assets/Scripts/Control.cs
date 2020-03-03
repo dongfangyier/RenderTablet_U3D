@@ -70,7 +70,7 @@ public class Control : MonoBehaviour
         // ------
         GameObject cameraObj;
         cameraObj = Instantiate(MyCamera.getInstance().GetCamera()) as GameObject;
-        cameraObj.transform.position = new Vector3(Mathf.Round((maxX - minX) / 2), 5.0f, Mathf.Round((maxZ - minZ) / 2) - 15.0f);
+        cameraObj.transform.position = new Vector3(Mathf.Round((maxX - minX) / 2), 7.0f, Mathf.Round((maxZ - minZ) / 2) - 20.0f);
         cameraObj.transform.Rotate(0.0f, -10f, 0.0f);
 
         // 加载灯光
@@ -78,7 +78,7 @@ public class Control : MonoBehaviour
         GameObject lightObj;
         lightObj = Instantiate(MyLight.getInstance().GetLight()) as GameObject;
         lightObj.transform.Translate(new Vector3(Random.Range(-4.0f, 4.0f), 10.0f, 0.0f));
-        lightObj.transform.Rotate(new Vector3(Random.Range(30.0f, 60.0f), 0.0f, 0.0f));
+        lightObj.transform.Rotate(new Vector3(Random.Range(40.0f, 70.0f), 0.0f, 0.0f));
 
         // 1s后执行 是为了触发BVisible
         yield return new WaitForSeconds(1);
