@@ -14,7 +14,8 @@ public class Control : MonoBehaviour
     void Start()
     {
         // 每6秒 执行一次
-        InvokeRepeating("RenderRandomModels", 1, 8);
+        InvokeRepeating("RenderRandomModels", 1, 10);
+        //RenderRandomModels();
     }
 
     private void RenderRandomModels()
@@ -30,22 +31,24 @@ public class Control : MonoBehaviour
         List<string> modelNames = Models.getInstance().GetModelNames();
         for (int i = 0; i < modelNames.Count; i++)
         {
-            float z = Random.Range(-5.0f, 5.0f);
+            float z = Random.Range(-6.0f, 6.0f);
             float y = 3.0f;
-            float x = Random.Range(-5.0f, 5.0f);
+            float x = Random.Range(-6.0f, 6.0f);
+
+            GameObject temp = Instantiate(Models.getInstance().GetModelsByName(modelNames[i])) as GameObject;
+
+            // 随机位置
+            temp.transform.localScale = new Vector3(200.0f, 200.0f, 200.0f);
+            temp.transform.Translate(new Vector3(x, y, z));
+            temp.transform.Rotate(new Vector3(Random.Range(0.0f, 90.0f), Random.Range(0.0f, 90.0f), Random.Range(0.0f, 90.0f)));
+            temp.transform.parent = this.transform;
 
             // 添加组件
-            GameObject temp = Instantiate(Models.getInstance().GetModelsByName(modelNames[i])) as GameObject;
             temp.AddComponent<MeshCollider>();
             temp.GetComponent<MeshCollider>().convex = true;
             temp.AddComponent<Rigidbody>();
             temp.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionX;
             temp.AddComponent<BVisible>();
-
-
-            temp.transform.localScale = new Vector3(200.0f, 200.0f, 200.0f);
-            temp.transform.Translate(new Vector3(x, y, z));
-            temp.transform.parent = this.transform;
         }
 
         // 添加摄像机和灯光 并渲染图片
@@ -57,8 +60,8 @@ public class Control : MonoBehaviour
 
     private IEnumerator RenderPic()
     {
-        // 2s后执行 因为有些力的关系需要计算清楚
-        yield return new WaitForSeconds(4);
+        // 5s后执行 因为有些力的关系需要计算清楚
+        yield return new WaitForSeconds(5);
 
         // 冻结位置
         // ------

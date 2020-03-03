@@ -24,15 +24,39 @@ public class Models
     }
     #endregion
 
+    // type
+    private string[] tabletType =  {"circle", "capsule","oval","special"};
+    private int[] tabletCount = {1, 4, 3, 1};
     private Dictionary<string, string> modelPaths = new Dictionary<string, string>();
     private void init()
     {
+        string rootPath = Path.Combine(Application.dataPath, "Resources", "Prefabs");
         modelPaths.Clear();
-        modelPaths.Add("circle00", Path.Combine("Prefabs", "circle", "circle00"));
-        modelPaths.Add("capsule00", Path.Combine("Prefabs", "capsule", "capsule00"));
-        modelPaths.Add("capsule01", Path.Combine("Prefabs", "capsule", "capsule01"));
-        modelPaths.Add("capsule02", Path.Combine("Prefabs", "capsule", "capsule02"));
-        modelPaths.Add("capsule03", Path.Combine("Prefabs", "capsule", "capsule03"));
+
+
+        // 随机抽取（每次10个药片？？）
+        // ------
+        for(int i = 0; i < tabletType.Length; i++)
+        {
+            List<string> files = GetFilesFromDir(Path.Combine(rootPath, tabletType[i]));
+            int needCount = tabletCount[i];
+            int index = 0;
+            while (needCount > 0)
+            {
+                int tag = Random.Range(0, files.Count);
+                string key = files[tag];
+                // 防止 key 重复
+                if (modelPaths.ContainsKey(key))
+                {
+                    index++;
+                    key += ("_" + index.ToString());
+                }
+
+                modelPaths.Add(files[tag], Path.Combine("Prefabs", tabletType[i], files[tag]));
+                needCount--;
+            }
+
+        }
 
     }
 
@@ -45,5 +69,22 @@ public class Models
     {
         return modelPaths.Keys.ToList<string>();
     }
+
+    #region utils
+
+    private List<string> GetFilesFromDir(string path, string type = "*.prefab")
+    {
+        List<string> res = new List<string>();
+        DirectoryInfo folder = new DirectoryInfo(path);
+
+
+        foreach (FileInfo file in folder.GetFiles(type))
+        {
+            res.Add(file.Name.Split('.')[0]);
+        }
+        return res;
+    }
+
+    #endregion
 
 }
