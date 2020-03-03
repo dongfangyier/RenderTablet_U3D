@@ -30,6 +30,12 @@ public class Models
     private Dictionary<string, string> modelPaths = new Dictionary<string, string>();
     private void init()
     {
+
+    }
+
+
+    private void refresh()
+    {
         string rootPath = Path.Combine(Application.dataPath, "Resources", "Prefabs");
         modelPaths.Clear();
 
@@ -52,7 +58,7 @@ public class Models
                     key += ("_" + index.ToString());
                 }
 
-                modelPaths.Add(files[tag], Path.Combine("Prefabs", tabletType[i], files[tag]));
+                modelPaths.Add(key, Path.Combine("Prefabs", tabletType[i], files[tag]));
                 needCount--;
             }
 
@@ -67,6 +73,7 @@ public class Models
 
     public List<string> GetModelNames()
     {
+        refresh();
         return modelPaths.Keys.ToList<string>();
     }
 

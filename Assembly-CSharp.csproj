@@ -68,6 +68,7 @@
     <Compile Include="Assets\Scripts\Models.cs" />
     <Compile Include="Assets\Scripts\MyCamera.cs" />
     <Compile Include="Assets\Scripts\MyLight.cs" />
+    <Compile Include="Assets\Scripts\MyMaterials.cs" />
     <None Include="Assets\Result\PosInfo_3.txt" />
     <None Include="Assets\Result\PosInfo_2.txt" />
     <None Include="Assets\Result\PosInfo_1.txt" />
