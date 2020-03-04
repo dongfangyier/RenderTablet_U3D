@@ -15,6 +15,7 @@ public class Control : MonoBehaviour
     {
         // 每6秒 执行一次
         InvokeRepeating("RenderRandomModels", 1, 10);
+       //RenderRandomModels();
     }
 
     private void RenderRandomModels()
@@ -25,10 +26,13 @@ public class Control : MonoBehaviour
         }
         bInit = true;
 
+        // 盒子的纹理材质
+        // ------
+        Material mat = (Material)MyMaterials.getInstance().GetMaterial();
         for (int i = 0; i < board.transform.childCount; i++)
         {
             GameObject tempObject = board.transform.GetChild(i).gameObject;
-            tempObject.GetComponent<MeshRenderer>().material= (Material)MyMaterials.getInstance().GetMaterial();
+            tempObject.GetComponent<MeshRenderer>().material= mat;
 
         }
 
@@ -37,15 +41,15 @@ public class Control : MonoBehaviour
         List<string> modelNames = Models.getInstance().GetModelNames();
         for (int i = 0; i < modelNames.Count; i++)
         {
-            float z = Random.Range(-6.0f, 6.0f);
-            float y = 3.0f;
-            float x = Random.Range(-6.0f, 6.0f);
+            float z = Random.Range(-20.0f, 20.0f);
+            float y = 40.0f;
+            float x = Random.Range(-20.0f, 20.0f);
 
             GameObject temp = Instantiate(Models.getInstance().GetModelsByName(modelNames[i])) as GameObject;
 
             // 随机位置
-            temp.transform.localScale = new Vector3(200.0f, 200.0f, 200.0f);
-            temp.transform.Translate(new Vector3(x, y, z));
+            temp.transform.localScale = new Vector3(500.0f, 500.0f, 500.0f);
+            temp.transform.position = new Vector3(x, y, z);
             temp.transform.Rotate(new Vector3(Random.Range(0.0f, 90.0f), Random.Range(0.0f, 90.0f), Random.Range(0.0f, 90.0f)));
             temp.transform.parent = this.transform;
 
@@ -72,22 +76,31 @@ public class Control : MonoBehaviour
         // 冻结位置
         // ------
         float minX, maxX;
-        float minZ, maxZ;
-        FreezeRigidbody(out minX, out maxX, out minZ, out maxZ);
+        FreezeRigidbody(out minX, out maxX);
 
         // 加载摄像机
         // ------
         GameObject cameraObj;
         cameraObj = Instantiate(MyCamera.getInstance().GetCamera()) as GameObject;
-        cameraObj.transform.position = new Vector3(Mathf.Round((maxX - minX) / 2), 9.0f, Mathf.Round((maxZ - minZ) / 2) - 20.0f);
-        cameraObj.transform.Rotate(0.0f, -10f, 0.0f);
+        float tag = Random.Range(-1.0f, 1.0f);
+        if (tag >= 0)
+        {
+            cameraObj.transform.position = new Vector3(Mathf.Round((maxX - minX) / 2), Random.Range(20.0f, 30.0f), Random.Range(-85.0f, -55.0f));
+            cameraObj.transform.Rotate(Random.Range(0.0f, 25.0f), Random.Range(-20.0f, 20.0f), 0.0f);
+        }
+        else
+        {
+            cameraObj.transform.position = new Vector3(Mathf.Round((maxX - minX) / 2), Random.Range(20.0f, 30.0f), Random.Range(65.0f, 55.0f));
+            cameraObj.transform.Rotate(Random.Range(0.0f, 25.0f), Random.Range(160.0f, 200.0f), 0.0f);
+        }
+
 
         // 加载灯光
         // ------
         GameObject lightObj;
         lightObj = Instantiate(MyLight.getInstance().GetLight()) as GameObject;
-        lightObj.transform.Translate(new Vector3(Random.Range(-4.0f, 4.0f), 6.0f, 0.0f));
-        lightObj.transform.Rotate(new Vector3(Random.Range(40.0f, 70.0f), 0.0f, 0.0f));
+        lightObj.transform.position = new Vector3(Random.Range(-40.0f, 40.0f), 60.0f, 0.0f); // meanless
+        lightObj.transform.Rotate(new Vector3(Random.Range(20.0f, 60.0f), Random.Range(0.0f, 180.0f), 0.0f));
 
         // 1s后执行 是为了触发BVisible
         yield return new WaitForSeconds(1);
@@ -122,10 +135,9 @@ public class Control : MonoBehaviour
     }
 
     // 冻结刚体，并返回此时物体的大致位置
-    private void FreezeRigidbody(out float minX, out float maxX, out float minZ, out float maxZ)
+    private void FreezeRigidbody(out float minX, out float maxX)
     {
         minX = float.MaxValue; maxX = float.MinValue;
-        minZ = float.MaxValue; maxZ = float.MinValue;
         for (int i = 0; i < transform.childCount; i++)
         {
             GameObject temp = this.transform.GetChild(i).gameObject;
@@ -141,14 +153,6 @@ public class Control : MonoBehaviour
             if (x > maxX)
             {
                 maxX = x;
-            }
-            if (z < minZ)
-            {
-                minZ = z;
-            }
-            if (z > maxZ)
-            {
-                maxZ = z;
             }
         }
     }
