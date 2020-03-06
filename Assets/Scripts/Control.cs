@@ -13,8 +13,9 @@ public class Control : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // 每10秒 执行一次
+        // 每6秒 执行一次
         InvokeRepeating("RenderRandomModels", 1, 10);
+       //RenderRandomModels();
     }
 
     private void RenderRandomModels()

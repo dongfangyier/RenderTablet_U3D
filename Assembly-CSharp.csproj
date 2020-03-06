@@ -70,12 +70,10 @@
     <Compile Include="Assets\Scripts\MyLight.cs" />
     <Compile Include="Assets\Scripts\MyMaterials.cs" />
     <None Include="Assets\Result\PosInfo_3.txt" />
-    <None Include="Assets\Result\PosInfo_6.txt" />
     <None Include="Assets\Result\PosInfo_2.txt" />
     <None Include="Assets\Result\PosInfo_1.txt" />
     <None Include="Assets\Result\PosInfo_0.txt" />
     <None Include="Assets\Result\PosInfo_4.txt" />
-    <None Include="Assets\Result\PosInfo_5.txt" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>D:/Space/UnitySpace/RenderTablet_U3D/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
