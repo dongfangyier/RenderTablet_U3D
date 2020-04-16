@@ -7,6 +7,8 @@ using UnityEngine;
 public class Control : MonoBehaviour
 {
     public GameObject board;
+    public Light DirLight0;
+    public Light DirLight1;
     private bool bInit = false;
     private int fileId = 0;
 
@@ -14,10 +16,10 @@ public class Control : MonoBehaviour
     void Start()
     {
         // test 
-        //RenderRandomModels();
+        RenderRandomModels();
 
         // 每10秒 执行一次
-        InvokeRepeating("RenderRandomModels", 1, 10);
+        //InvokeRepeating("RenderRandomModels", 1, 10);
     }
 
     private void RenderRandomModels()
@@ -37,6 +39,12 @@ public class Control : MonoBehaviour
             tempObject.GetComponent<MeshRenderer>().material= mat;
 
         }
+
+        // 环境光源
+        // ------
+        DirLight0.transform.Rotate(new Vector3(Random.Range(-90.0f, 90.0f), Random.Range(-90.0f, 90.0f), Random.Range(-90.0f, 90.0f)));
+        DirLight1.transform.Rotate(new Vector3(Random.Range(-90.0f, 90.0f), Random.Range(-90.0f, 90.0f), Random.Range(-90.0f, 90.0f)));
+
 
         // 加载模型文件
         // ------
@@ -116,11 +124,11 @@ public class Control : MonoBehaviour
 
         // 存储截屏
         // ------
-        SaveScreenPic();
+        //SaveScreenPic();
 
         // 销毁物体
         // ------
-        DestoryModels(ref lightObj, ref cameraObj);
+        //DestoryModels(ref lightObj, ref cameraObj);
     }
 
     private void DestoryModels(ref GameObject lightObj, ref GameObject cameraObj)
