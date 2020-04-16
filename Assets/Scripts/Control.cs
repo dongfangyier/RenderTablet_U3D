@@ -92,17 +92,22 @@ public class Control : MonoBehaviour
         // ------
         GameObject cameraObj;
         cameraObj = Instantiate(MyCamera.getInstance().GetCamera()) as GameObject;
-        float tag = Random.Range(-1.0f, 1.0f);
-        if (tag >= 0)
-        {
-            cameraObj.transform.position = new Vector3(Mathf.Round((maxX - minX) / 2), Random.Range(20.0f, 30.0f), Random.Range(-85.0f, -55.0f));
-            cameraObj.transform.Rotate(Random.Range(0.0f, 25.0f), Random.Range(-20.0f, 20.0f), 0.0f);
-        }
-        else
-        {
-            cameraObj.transform.position = new Vector3(Mathf.Round((maxX - minX) / 2), Random.Range(20.0f, 30.0f), Random.Range(65.0f, 55.0f));
-            cameraObj.transform.Rotate(Random.Range(0.0f, 25.0f), Random.Range(160.0f, 200.0f), 0.0f);
-        }
+        Vector3 cameraPos = new Vector3(Random.Range(-90.0f, 90.0f), Random.Range(10.0f, 90.0f), Random.Range(-90.0f, 90.0f));
+        cameraObj.transform.position = cameraPos;
+        Vector3 targetPos = new Vector3(0, -5, 0);
+        cameraObj.transform.LookAt(targetPos);
+
+        //float tag = Random.Range(-1.0f, 1.0f);
+        //if (tag >= 0)
+        //{
+        //    cameraObj.transform.position = new Vector3(Mathf.Round((maxX - minX) / 2), Random.Range(20.0f, 30.0f), Random.Range(-85.0f, -55.0f));
+        //    cameraObj.transform.Rotate(Random.Range(0.0f, 25.0f), Random.Range(-20.0f, 20.0f), 0.0f);
+        //}
+        //else
+        //{
+        //    cameraObj.transform.position = new Vector3(Mathf.Round((maxX - minX) / 2), Random.Range(20.0f, 30.0f), Random.Range(65.0f, 55.0f));
+        //    cameraObj.transform.Rotate(Random.Range(0.0f, 25.0f), Random.Range(160.0f, 200.0f), 0.0f);
+        //}
 
 
         // 加载灯光
