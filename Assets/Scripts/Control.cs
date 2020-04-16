@@ -85,8 +85,7 @@ public class Control : MonoBehaviour
 
         // 冻结位置
         // ------
-        float minX, maxX;
-        FreezeRigidbody(out minX, out maxX);
+        FreezeRigidbody();
 
         // 加载摄像机
         // ------
@@ -96,18 +95,6 @@ public class Control : MonoBehaviour
         cameraObj.transform.position = cameraPos;
         Vector3 targetPos = new Vector3(0, -5, 0);
         cameraObj.transform.LookAt(targetPos);
-
-        //float tag = Random.Range(-1.0f, 1.0f);
-        //if (tag >= 0)
-        //{
-        //    cameraObj.transform.position = new Vector3(Mathf.Round((maxX - minX) / 2), Random.Range(20.0f, 30.0f), Random.Range(-85.0f, -55.0f));
-        //    cameraObj.transform.Rotate(Random.Range(0.0f, 25.0f), Random.Range(-20.0f, 20.0f), 0.0f);
-        //}
-        //else
-        //{
-        //    cameraObj.transform.position = new Vector3(Mathf.Round((maxX - minX) / 2), Random.Range(20.0f, 30.0f), Random.Range(65.0f, 55.0f));
-        //    cameraObj.transform.Rotate(Random.Range(0.0f, 25.0f), Random.Range(160.0f, 200.0f), 0.0f);
-        //}
 
 
         // 加载灯光
@@ -150,25 +137,14 @@ public class Control : MonoBehaviour
     }
 
     // 冻结刚体，并返回此时物体的大致位置
-    private void FreezeRigidbody(out float minX, out float maxX)
+    private void FreezeRigidbody()
     {
-        minX = float.MaxValue; maxX = float.MinValue;
         for (int i = 0; i < transform.childCount; i++)
         {
             GameObject temp = this.transform.GetChild(i).gameObject;
             temp.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
             float x = temp.transform.position.x;
             float z = temp.transform.position.z;
-
-            // 记录模型文件的大致范围x, z
-            if (x < minX)
-            {
-                minX = x;
-            }
-            if (x > maxX)
-            {
-                maxX = x;
-            }
         }
     }
 
