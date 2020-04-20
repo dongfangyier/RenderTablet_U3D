@@ -12,11 +12,18 @@ public class Control : MonoBehaviour
     private bool bInit = false;
     private int fileId = 0;
 
+    private readonly string OutputPath = Path.Combine(System.Environment.CurrentDirectory, "Result");
+
     // Start is called before the first frame update
     void Start()
     {
         // test 
         //RenderRandomModels();
+
+        if (!Directory.Exists(OutputPath))
+        {
+            Directory.CreateDirectory(OutputPath);
+        }
 
         // 每10秒 执行一次
         InvokeRepeating("RenderRandomModels", 1, 10);
@@ -174,13 +181,13 @@ public class Control : MonoBehaviour
             str += "\n";
 
         }
-        File.WriteAllText(Path.Combine(Application.dataPath, "Result", "PosInfo_"+fileId.ToString()+".txt"), str);
+        File.WriteAllText(Path.Combine(OutputPath, "PosInfo_"+fileId.ToString()+".txt"), str);
         
     }
 
     private void SaveScreenPic()
     {
-       ScreenCapture.CaptureScreenshot(Path.Combine(Application.dataPath, "Result", "ImgInfo_" + fileId.ToString() + ".png"));
+       ScreenCapture.CaptureScreenshot(Path.Combine(OutputPath, "ImgInfo_" + fileId.ToString() + ".png"));
     }
 
     #endregion
