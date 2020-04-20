@@ -16,10 +16,10 @@ public class Control : MonoBehaviour
     void Start()
     {
         // test 
-        RenderRandomModels();
+        //RenderRandomModels();
 
         // 每10秒 执行一次
-        //InvokeRepeating("RenderRandomModels", 1, 10);
+        InvokeRepeating("RenderRandomModels", 1, 10);
     }
 
     private void RenderRandomModels()
@@ -91,7 +91,7 @@ public class Control : MonoBehaviour
         // ------
         GameObject cameraObj;
         cameraObj = Instantiate(MyCamera.getInstance().GetCamera()) as GameObject;
-        Vector3 cameraPos = new Vector3(Random.Range(-90.0f, 90.0f), Random.Range(10.0f, 90.0f), Random.Range(-90.0f, 90.0f));
+        Vector3 cameraPos = new Vector3(Random.Range(-80.0f, 80.0f), Random.Range(-1.0f, 80.0f), Random.Range(-80.0f, 80.0f));
         cameraObj.transform.position = cameraPos;
         Vector3 targetPos = new Vector3(0, -5, 0);
         cameraObj.transform.LookAt(targetPos);
@@ -116,11 +116,11 @@ public class Control : MonoBehaviour
 
         // 存储截屏
         // ------
-        //SaveScreenPic();
+        SaveScreenPic();
 
         // 销毁物体
         // ------
-        //DestoryModels(ref lightObj, ref cameraObj);
+        DestoryModels(ref lightObj, ref cameraObj);
     }
 
     private void DestoryModels(ref GameObject lightObj, ref GameObject cameraObj)
