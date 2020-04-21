@@ -1,16 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using System.Threading;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class Control : MonoBehaviour
 {
-    public GameObject board;
-    public Light DirLight0;
-    public Light DirLight1;
+    public GameObject _Board;
+    public GameObject _SkyBox;
     private bool bInit = false;
     private int fileId = 0;
+    private GameObject SkyBoxObj = null;
 
     private readonly string OutputPath = Path.Combine(System.Environment.CurrentDirectory, "Result");
 
@@ -37,20 +37,9 @@ public class Control : MonoBehaviour
         }
         bInit = true;
 
-        // 盒子的纹理材质
+        // 天空盒
         // ------
-        Material mat = (Material)MyMaterials.getInstance().GetMaterial();
-        for (int i = 0; i < board.transform.childCount; i++)
-        {
-            GameObject tempObject = board.transform.GetChild(i).gameObject;
-            tempObject.GetComponent<MeshRenderer>().material= mat;
-
-        }
-
-        // 环境光源
-        // ------
-        DirLight0.transform.Rotate(new Vector3(Random.Range(-90.0f, 90.0f), Random.Range(-90.0f, 90.0f), Random.Range(-90.0f, 90.0f)));
-        DirLight1.transform.Rotate(new Vector3(Random.Range(-90.0f, 90.0f), Random.Range(-90.0f, 90.0f), Random.Range(-90.0f, 90.0f)));
+        SkyBoxObj =  Instantiate(MySkyBoxs.getInstance().GetSkyBoxs()) as GameObject;
 
 
         // 加载模型文件
@@ -98,7 +87,7 @@ public class Control : MonoBehaviour
         // ------
         GameObject cameraObj;
         cameraObj = Instantiate(MyCamera.getInstance().GetCamera()) as GameObject;
-        Vector3 cameraPos = new Vector3(Random.Range(-80.0f, 80.0f), Random.Range(-1.0f, 80.0f), Random.Range(-80.0f, 80.0f));
+        Vector3 cameraPos = new Vector3(Random.Range(-80.0f, 80.0f), Random.Range(10.0f, 80.0f), Random.Range(-80.0f, 80.0f));
         cameraObj.transform.position = cameraPos;
         Vector3 targetPos = new Vector3(0, -5, 0);
         cameraObj.transform.LookAt(targetPos);
@@ -134,6 +123,7 @@ public class Control : MonoBehaviour
     {
         Destroy(lightObj);
         Destroy(cameraObj);
+        Destroy(SkyBoxObj);
         for (int i = 0; i < transform.childCount; i++)
         {
             Destroy(this.transform.GetChild(i).gameObject);
