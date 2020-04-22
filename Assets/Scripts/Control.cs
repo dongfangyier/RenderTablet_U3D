@@ -18,7 +18,7 @@ public class Control : MonoBehaviour
     void Start()
     {
         // test 
-        //RenderRandomModels();
+        RenderRandomModels();
 
         if (!Directory.Exists(OutputPath))
         {
@@ -26,7 +26,7 @@ public class Control : MonoBehaviour
         }
 
         // 每10秒 执行一次
-        InvokeRepeating("RenderRandomModels", 1, 10);
+        //InvokeRepeating("RenderRandomModels", 1, 10);
     }
 
     private void RenderRandomModels()
@@ -36,6 +36,16 @@ public class Control : MonoBehaviour
             return;
         }
         bInit = true;
+
+        // 地板材质
+        // ------
+        Material mat = (Material)MyMaterials.getInstance().GetMaterial();
+        for (int i = 0; i < _Board.transform.childCount; i++)
+        {
+            GameObject tempObject = _Board.transform.GetChild(i).gameObject;
+            tempObject.GetComponent<MeshRenderer>().material = mat;
+
+        }
 
         // 天空盒
         // ------
@@ -112,11 +122,11 @@ public class Control : MonoBehaviour
 
         // 存储截屏
         // ------
-        SaveScreenPic();
+        //SaveScreenPic();
 
         // 销毁物体
         // ------
-        DestoryModels(ref lightObj, ref cameraObj);
+        //DestoryModels(ref lightObj, ref cameraObj);
     }
 
     private void DestoryModels(ref GameObject lightObj, ref GameObject cameraObj)
