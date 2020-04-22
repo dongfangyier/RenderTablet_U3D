@@ -262,9 +262,13 @@ __pycache__/
 
 
 *.fbx
+*.asset
 Library/
 ProjectSettings/
 Temp/
 Resources/
 Models/
 Result/
+LocalPackages/
+UIElementsSchema/
+Assets/Scenes/RenderScene/
