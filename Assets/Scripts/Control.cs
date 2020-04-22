@@ -7,8 +7,9 @@ using UnityEngine;
 public class Control : MonoBehaviour
 {
     public GameObject board;
-    public Light DirLight0;
-    public Light DirLight1;
+    
+    //public Light DirLight0;
+    //public Light DirLight1;
     private bool bInit = false;
     private int fileId = 0;
 
@@ -17,6 +18,8 @@ public class Control : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
+        
         // test 
         //RenderRandomModels();
 
@@ -39,7 +42,8 @@ public class Control : MonoBehaviour
 
         // 盒子的纹理材质
         // ------
-        Material mat = (Material)MyMaterials.getInstance().GetMaterial();
+        Material mat = MyMaterials.getInstance().GetMaterial();
+        
         for (int i = 0; i < board.transform.childCount; i++)
         {
             GameObject tempObject = board.transform.GetChild(i).gameObject;
@@ -49,8 +53,8 @@ public class Control : MonoBehaviour
 
         // 环境光源
         // ------
-        DirLight0.transform.Rotate(new Vector3(Random.Range(-90.0f, 90.0f), Random.Range(-90.0f, 90.0f), Random.Range(-90.0f, 90.0f)));
-        DirLight1.transform.Rotate(new Vector3(Random.Range(-90.0f, 90.0f), Random.Range(-90.0f, 90.0f), Random.Range(-90.0f, 90.0f)));
+        //DirLight0.transform.Rotate(new Vector3(Random.Range(-90.0f, 90.0f), Random.Range(-90.0f, 90.0f), Random.Range(-90.0f, 90.0f)));
+        //DirLight1.transform.Rotate(new Vector3(Random.Range(-90.0f, 90.0f), Random.Range(-90.0f, 90.0f), Random.Range(-90.0f, 90.0f)));
 
 
         // 加载模型文件
@@ -98,7 +102,8 @@ public class Control : MonoBehaviour
         // ------
         GameObject cameraObj;
         cameraObj = Instantiate(MyCamera.getInstance().GetCamera()) as GameObject;
-        Vector3 cameraPos = new Vector3(Random.Range(-80.0f, 80.0f), Random.Range(-1.0f, 80.0f), Random.Range(-80.0f, 80.0f));
+        Vector3 cameraPos = new Vector3(Random.Range(-200.0f, 200.0f), Random.Range(20.0f, 160.0f), Random.Range(-200.0f, 200.0f));
+        print(cameraPos);
         cameraObj.transform.position = cameraPos;
         Vector3 targetPos = new Vector3(0, -5, 0);
         cameraObj.transform.LookAt(targetPos);
@@ -106,13 +111,13 @@ public class Control : MonoBehaviour
 
         // 加载灯光
         // ------
-        GameObject lightObj;
-        lightObj = Instantiate(MyLight.getInstance().GetLight()) as GameObject;
-        lightObj.transform.position = new Vector3(Random.Range(-40.0f, 40.0f), 60.0f, 0.0f); // meanless
-        lightObj.transform.Rotate(new Vector3(Random.Range(20.0f, 60.0f), Random.Range(0.0f, 180.0f), 0.0f));
+        //GameObject lightObj;
+        //lightObj = Instantiate(MyLight.getInstance().GetLight()) as GameObject;
+        //lightObj.transform.position = new Vector3(Random.Range(-40.0f, 40.0f), 60.0f, 0.0f); // meanless
+        //lightObj.transform.Rotate(new Vector3(Random.Range(20.0f, 60.0f), Random.Range(0.0f, 180.0f), 0.0f));
 
         // 1s后执行 是为了触发BVisible
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(20);
 
         // 存储物体坐标
         // ------
@@ -127,12 +132,12 @@ public class Control : MonoBehaviour
 
         // 销毁物体
         // ------
-        DestoryModels(ref lightObj, ref cameraObj);
+        DestoryModels(/*ref lightObj, */ref cameraObj);
     }
 
-    private void DestoryModels(ref GameObject lightObj, ref GameObject cameraObj)
+    private void DestoryModels(/*ref GameObject lightObj, */ref GameObject cameraObj)
     {
-        Destroy(lightObj);
+        //Destroy(lightObj);
         Destroy(cameraObj);
         for (int i = 0; i < transform.childCount; i++)
         {

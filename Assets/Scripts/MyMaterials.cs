@@ -31,12 +31,14 @@ public class MyMaterials
         materialFiles = GetFilesFromDir(rootPath);
     }
 
-    public Object GetMaterial()
+    public Material GetMaterial()
     {
         int tag = Random.Range(0, materialFiles.Count);
         materialPath = Path.Combine("Materials", materialFiles[tag]);
+        Material mat= (Material)Resources.Load(materialPath);
+        mat.SetFloat("_Smoothness", Random.Range(0.1f, 1.0f));
+        return mat;
 
-        return Resources.Load(materialPath);
     }
 
     #region utils
