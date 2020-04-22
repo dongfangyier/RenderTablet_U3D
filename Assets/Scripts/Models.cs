@@ -25,8 +25,8 @@ public class Models
     #endregion
 
     // type
-    private string[] tabletType =  {"circle", "capsule","oval","special"};
-    private int[] tabletCount = {1, 4, 3, 1};
+    private string[] tabletType =  {"circle", "capsule","oval","special", "candy"};
+    private int[] tabletCount = {1, 4, 3, 1, 1};
     private Dictionary<string, string> modelPaths = new Dictionary<string, string>();
     private void init()
     {
@@ -40,7 +40,7 @@ public class Models
         modelPaths.Clear();
 
 
-        // 随机抽取（每次10个药片？？）
+        // 随机抽取（每次11个药片？？）
         // ------
         for(int i = 0; i < tabletType.Length; i++)
         {
