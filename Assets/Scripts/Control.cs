@@ -18,7 +18,7 @@ public class Control : MonoBehaviour
     void Start()
     {
         // test 
-        RenderRandomModels();
+        //RenderRandomModels();
 
         if (!Directory.Exists(OutputPath))
         {
@@ -26,7 +26,7 @@ public class Control : MonoBehaviour
         }
 
         // 每10秒 执行一次
-        //InvokeRepeating("RenderRandomModels", 1, 10);
+        InvokeRepeating("RenderRandomModels", 1, 10);
     }
 
     private void RenderRandomModels()
@@ -86,8 +86,8 @@ public class Control : MonoBehaviour
 
     private IEnumerator RenderPic()
     {
-        // 5s后执行 因为有些力的关系需要计算清楚
-        yield return new WaitForSeconds(5);
+        // 6s后执行 因为有些力的关系需要计算清楚
+        yield return new WaitForSeconds(6);
 
         // 冻结位置
         // ------
@@ -122,11 +122,11 @@ public class Control : MonoBehaviour
 
         // 存储截屏
         // ------
-        //SaveScreenPic();
+        SaveScreenPic();
 
         // 销毁物体
         // ------
-        //DestoryModels(ref lightObj, ref cameraObj);
+        DestoryModels(ref lightObj, ref cameraObj);
     }
 
     private void DestoryModels(ref GameObject lightObj, ref GameObject cameraObj)
