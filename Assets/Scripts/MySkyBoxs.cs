@@ -23,20 +23,20 @@ class MySkyBoxs
     }
     #endregion
 
-    private string materialPath;
-    List<string> materialFiles;
+    private string skyboxPath;
+    List<string> skyboxFiles;
     private void init()
     {
-        string rootPath = Path.Combine(Application.dataPath, "Resources", "Prefabs","SkyBoxs");
-        materialFiles = GetFilesFromDir(rootPath);
+        string rootPath = Path.Combine(Application.dataPath, "Resources", "Prefabs", "skybox");
+        skyboxFiles = GetFilesFromDir(rootPath);
     }
 
     public Object GetSkyBoxs()
     {
-        int tag = Random.Range(0, materialFiles.Count);
-        materialPath = Path.Combine("Prefabs", "SkyBoxs", materialFiles[tag]);
+        int tag = Random.Range(0, skyboxFiles.Count);
+        skyboxPath = Path.Combine("Prefabs", "skybox", skyboxFiles[tag]);
 
-        return Resources.Load(materialPath);
+        return Resources.Load(skyboxPath);
     }
 
     #region utils

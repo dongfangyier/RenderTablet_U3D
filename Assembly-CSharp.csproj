@@ -66,6 +66,7 @@
     <Compile Include="Assets\Scripts\Control.cs" />
     <Compile Include="Assets\Scripts\MeshUtils.cs" />
     <Compile Include="Assets\Scripts\Models.cs" />
+    <Compile Include="Assets\Scripts\MyBoardTexture.cs" />
     <Compile Include="Assets\Scripts\MyCamera.cs" />
     <Compile Include="Assets\Scripts\MyLight.cs" />
     <Compile Include="Assets\Scripts\MyMaterials.cs" />

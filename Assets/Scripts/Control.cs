@@ -6,22 +6,18 @@ using UnityEngine;
 
 public class Control : MonoBehaviour
 {
-    public GameObject board;
-    
-    //public Light DirLight0;
-    //public Light DirLight1;
+    public GameObject _Board;
     private bool bInit = false;
     private int fileId = 0;
 
+    private GameObject SkyBoxObj = null;
     private readonly string OutputPath = Path.Combine(System.Environment.CurrentDirectory, "Result");
 
     // Start is called before the first frame update
     void Start()
-    {
-
-        
+    {   
         // test 
-        //RenderRandomModels();
+        RenderRandomModels();
 
         if (!Directory.Exists(OutputPath))
         {
@@ -29,7 +25,7 @@ public class Control : MonoBehaviour
         }
 
         // 每10秒 执行一次
-        InvokeRepeating("RenderRandomModels", 1, 10);
+        //InvokeRepeating("RenderRandomModels", 1, 10);
     }
 
     private void RenderRandomModels()
@@ -40,21 +36,20 @@ public class Control : MonoBehaviour
         }
         bInit = true;
 
-        // 盒子的纹理材质
+        // 地板材质
         // ------
-        Material mat = MyMaterials.getInstance().GetMaterial();
-        
-        for (int i = 0; i < board.transform.childCount; i++)
+        Texture2D texture = MyBoardTexture.getInstance().GetTexture() as Texture2D;
+        Material mat = Resources.Load(Path.Combine("boardMaterial")) as Material;
+        mat.SetTexture("_BaseColorMap", texture);
+        for (int i = 0; i < _Board.transform.childCount; i++)
         {
-            GameObject tempObject = board.transform.GetChild(i).gameObject;
-            tempObject.GetComponent<MeshRenderer>().material= mat;
-
+            GameObject tempObject = _Board.transform.GetChild(i).gameObject;
+            tempObject.GetComponent<MeshRenderer>().material = mat;
         }
 
-        // 环境光源
+        // 天空盒
         // ------
-        //DirLight0.transform.Rotate(new Vector3(Random.Range(-90.0f, 90.0f), Random.Range(-90.0f, 90.0f), Random.Range(-90.0f, 90.0f)));
-        //DirLight1.transform.Rotate(new Vector3(Random.Range(-90.0f, 90.0f), Random.Range(-90.0f, 90.0f), Random.Range(-90.0f, 90.0f)));
+        SkyBoxObj = Instantiate(MySkyBoxs.getInstance().GetSkyBoxs()) as GameObject;
 
 
         // 加载模型文件
@@ -103,7 +98,6 @@ public class Control : MonoBehaviour
         GameObject cameraObj;
         cameraObj = Instantiate(MyCamera.getInstance().GetCamera()) as GameObject;
         Vector3 cameraPos = new Vector3(Random.Range(-200.0f, 200.0f), Random.Range(20.0f, 160.0f), Random.Range(-200.0f, 200.0f));
-        print(cameraPos);
         cameraObj.transform.position = cameraPos;
         Vector3 targetPos = new Vector3(0, -5, 0);
         cameraObj.transform.LookAt(targetPos);
@@ -117,7 +111,7 @@ public class Control : MonoBehaviour
         //lightObj.transform.Rotate(new Vector3(Random.Range(20.0f, 60.0f), Random.Range(0.0f, 180.0f), 0.0f));
 
         // 1s后执行 是为了触发BVisible
-        yield return new WaitForSeconds(20);
+        yield return new WaitForSeconds(1);
 
         // 存储物体坐标
         // ------
@@ -128,16 +122,17 @@ public class Control : MonoBehaviour
 
         // 存储截屏
         // ------
-        SaveScreenPic();
+        //SaveScreenPic();
 
         // 销毁物体
         // ------
-        DestoryModels(/*ref lightObj, */ref cameraObj);
+        //DestoryModels(/*ref lightObj, */ref cameraObj);
     }
 
     private void DestoryModels(/*ref GameObject lightObj, */ref GameObject cameraObj)
     {
         //Destroy(lightObj);
+        Destroy(SkyBoxObj);
         Destroy(cameraObj);
         for (int i = 0; i < transform.childCount; i++)
         {
