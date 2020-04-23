@@ -39,7 +39,7 @@ public class Control : MonoBehaviour
         // 地板材质
         // ------
         Texture2D texture = MyBoardTexture.getInstance().GetTexture() as Texture2D;
-        Material mat = Resources.Load(Path.Combine("boardMaterial")) as Material;
+        Material mat = Resources.Load(Path.Combine("Materials", "boardMaterial")) as Material;
         mat.SetTexture("_BaseColorMap", texture);
         mat.SetFloat("_Smoothness", Random.Range(0.1f, 1.0f));
         for (int i = 0; i < _Board.transform.childCount; i++)

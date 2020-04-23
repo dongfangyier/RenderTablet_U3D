@@ -41,16 +41,22 @@ class MyBoardTexture
 
     #region utils
 
-    private List<string> GetFilesFromDir(string path, string type = "*.png")
+    private List<string> GetFilesFromDir(string path, string type1 = "*.jpg", string type2 = "*.png")
     {
         List<string> res = new List<string>();
         DirectoryInfo folder = new DirectoryInfo(path);
 
 
-        foreach (FileInfo file in folder.GetFiles(type))
+        foreach (FileInfo file in folder.GetFiles(type1))
         {
             res.Add(file.Name.Split('.')[0]);
         }
+
+        foreach (FileInfo file in folder.GetFiles(type2))
+        {
+            res.Add(file.Name.Split('.')[0]);
+        }
+
         return res;
     }
 
