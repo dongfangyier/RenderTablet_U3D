@@ -39,14 +39,13 @@ public class Control : MonoBehaviour
         // 地板材质
         // ------
         Texture2D texture = MyBoardTexture.getInstance().GetTexture() as Texture2D;
-        Material mat = Resources.Load(Path.Combine("Materials", "boardMaterial")) as Material;
-        mat.SetTexture("_BaseColorMap", texture);
-        mat.SetFloat("_Smoothness", Random.Range(0.1f, 1.0f));
         for (int i = 0; i < _Board.transform.childCount; i++)
         {
             GameObject tempObject = _Board.transform.GetChild(i).gameObject;
-            tempObject.GetComponent<MeshRenderer>().material = mat;
+            tempObject.GetComponent<MeshRenderer>().material.SetTexture("_BaseColorMap", texture);
+            tempObject.GetComponent<MeshRenderer>().material.SetFloat("_Smoothness", Random.Range(0.1f, 1.0f));
         }
+        texture = null;
 
         // 天空盒
         // ------
@@ -133,15 +132,17 @@ public class Control : MonoBehaviour
     private void DestoryModels(/*ref GameObject lightObj, */ref GameObject cameraObj)
     {
         //Destroy(lightObj);
-        Destroy(SkyBoxObj);
-        Destroy(cameraObj);
-        for (int i = 0; i < transform.childCount; i++)
+        DestroyImmediate(SkyBoxObj);
+        DestroyImmediate(cameraObj);
+        int count = transform.childCount;
+        for (int i = 0; i < count; i++)
         {
-            Destroy(this.transform.GetChild(i).gameObject);
+            DestroyImmediate(this.transform.GetChild(0).gameObject);
         }
 
         bInit = false;
         fileId++;
+        Resources.UnloadUnusedAssets();
     }
 
     // 冻结刚体，并返回此时物体的大致位置
